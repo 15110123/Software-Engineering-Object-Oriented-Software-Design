@@ -4,6 +4,12 @@ body
     font-size: 14px;
 }
 
+.Dropdown
+{
+text-align: center;
+width: 200px;
+}
+
 .BtnNav
 {
     background-color: green;
@@ -23,7 +29,7 @@ body
     animation: ToRight;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .BtnNav:hover label
@@ -31,7 +37,7 @@ body
     animation: ToLeft;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 
 }
 
@@ -42,6 +48,7 @@ body
     cursor: pointer;
     font-size: 25px;
     margin: 0 15px 0 5px;
+    line-height: 25px;
 }
 
 .BtnNav i
@@ -50,6 +57,41 @@ body
     top: 0px;
     font-size: 25px;
     margin: 0 0 0 15px;
+}
+
+/*Dropdown menu*/
+.Dropdown .Dropdown-content
+{
+    background-color: aquamarine;
+    display: none;
+}
+
+.Dropdown .Dropdown-content:hover
+{
+    display: block;
+}
+
+.BtnNav:hover +.Dropdown-content
+{
+    display: block;
+    animation: Flip;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.Dropdown .Dropdown-content a
+{
+    display: block;
+    width: 200px;
+    text-decoration: unset;
+    color: grey;
+    font-size: 20px;
+}
+
+.Dropdown .Dropdown-content a:hover
+{
+    font-size: 30px;
+    color: black;
 }
 
 /*Animation frames*/
@@ -73,5 +115,15 @@ right: 0;
     to
     {
 right: 20%;
+    }
+}
+
+@keyframes Flip {
+    from
+    {
+        transform: rotateY(-90deg);
+    }
+    to{
+        transform: rotateY(0deg);
     }
 }
