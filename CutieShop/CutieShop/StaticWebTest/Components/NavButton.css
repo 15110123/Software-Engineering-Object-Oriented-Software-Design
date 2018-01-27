@@ -24,7 +24,7 @@ width: 200px;
     outline: none;
 }
 
-.BtnNav:hover i
+.Dropdown:hover i
 {
     animation: ToRight;
     animation-duration: 2s;
@@ -32,7 +32,7 @@ width: 200px;
     animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.BtnNav:hover label
+.Dropdown:hover label
 {
     animation: ToLeft;
     animation-duration: 2s;
@@ -62,7 +62,6 @@ width: 200px;
 /*Dropdown menu*/
 .Dropdown .Dropdown-content
 {
-    background-color: aquamarine;
     display: none;
 }
 
@@ -71,7 +70,7 @@ width: 200px;
     display: block;
 }
 
-.BtnNav:hover +.Dropdown-content
+.Dropdown:hover .Dropdown-content
 {
     display: block;
     animation: Flip;
