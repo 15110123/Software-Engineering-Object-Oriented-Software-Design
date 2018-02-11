@@ -121,6 +121,14 @@ p.nominalBounds = new cjs.Rectangle(0.4,-61.4,35.2,193.6);
 (lib.main = function(mode,startPosition,loop) {
 if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{});
 
+	// timeline functions:
+	this.frame_74 = function() {
+		$('animation_container').toggle();
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).wait(74).call(this.frame_74).wait(1));
+
 	// Duplicate footprint
 	this.instance = new lib.Symbol8();
 	this.instance.parent = this;
