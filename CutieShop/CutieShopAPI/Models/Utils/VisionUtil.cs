@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -8,28 +9,39 @@ using Newtonsoft.Json;
 
 namespace CutieShop.API.Models.Utils
 {
+    /// <summary>
+    /// Class for vision-related methods
+    /// </summary>
     public sealed class VisionUtil
     {
+        private readonly HttpClient _httpClient = new HttpClient();
+
         private readonly AzureSettings _azureSettings;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="azureSettings">Contains Azure's settings</param>
         public VisionUtil(AzureSettings azureSettings)
         {
             _azureSettings = azureSettings;
-        }
-
-        public async Task<VisionResult> GetResult(string imageUrl)
-        {
-            var client = new HttpClient();
 
             // Request headers.
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _azureSettings.Vision.Key1);
+            _httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _azureSettings.Vision.Key1);
+        }
 
-            // Request parameters. A third optional parameter is "details".
+        /// <summary>
+        /// Get vision result of the image from the URL. 
+        /// </summary>
+        /// <param name="imageUrl">The URL to the image. </param>
+        /// <returns></returns>
+        public async Task<VisionResult> GetResult(string imageUrl)
+        {
+
+            // Request parameters. A third optional parameter is "details". WARNING: No 'vi' (Vietnamese) for this API. 
             var requestParameters = "visualFeatures=Categories,Description,Color&language=en";
 
             // Assemble the URI for the REST API Call.
             var uri = _azureSettings.Vision.Endpoint + "?" + requestParameters;
-
-            HttpResponseMessage response;
 
             // Request body. Posts a locally stored JPEG image.
             var byteData = (await HttpUtil.GetBytesFromUrl(imageUrl)).ToArray();
@@ -41,12 +53,31 @@ namespace CutieShop.API.Models.Utils
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
                 // Execute the REST API call.
-                response = await client.PostAsync(uri, content);
+                var response = await _httpClient.PostAsync(uri, content);
 
                 // Get the JSON response.
                 var contentString = await response.Content.ReadAsStringAsync();
 
-                // Display the JSON response.
+                // Convert response to appropriate VisionResult. 
+                return JsonConvert.DeserializeObject<VisionResult>(contentString);
+            }
+        }
+
+        public async Task<VisionResult> GetResult(Stream imgStream)
+        {
+            var requestParameters = "visualFeatures=Categories,Description,Color&language=en";
+
+            var uri = _azureSettings.Vision.Endpoint + "?" + requestParameters;
+
+            var byteData = imgStream.AsByteArray();
+
+            using (var content = new ByteArrayContent(byteData))
+            {
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+                var response = await _httpClient.PostAsync(uri, content);
+
+                var contentString = await response.Content.ReadAsStringAsync();
 
                 return JsonConvert.DeserializeObject<VisionResult>(contentString);
             }

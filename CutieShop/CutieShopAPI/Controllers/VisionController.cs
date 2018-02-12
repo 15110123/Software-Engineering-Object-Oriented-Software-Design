@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CutieShop.API.Models.JSONEntities.Settings;
+﻿using CutieShop.API.Models.JSONEntities.Settings;
 using CutieShop.API.Models.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CutieShop.API.Controllers
 {
@@ -18,13 +19,32 @@ namespace CutieShop.API.Controllers
             _azureSettings = azureSettings.Value;
         }
 
-        [HttpGet("{*imageUrl}")]
-        public async Task<IEnumerable<string>> Index(string imageUrl)
+        [HttpPost]
+        public async Task<JsonResult> Index(string imageUrl)
         {
-            //Small issue: Don't really know why all continueous slashes are grouped in one 
-            imageUrl = imageUrl.Replace(@":/", @"://");
             var visionUtil = new VisionUtil(_azureSettings);
-            return new [] { "vision1", "vision2", imageUrl, (await visionUtil.GetResult(imageUrl)).Description.Captions[0].Text };
+            var result = await visionUtil.GetResult(imageUrl);
+            return Json(new
+            {
+                Captions = result.Description.Captions[0].Text,
+                Categories = result.Categories.Select(x => x.Name.ToString())
+            });
+        }
+
+        [HttpPost("fromfile")]
+        public async Task<JsonResult> FromFile(IFormFile imgFile)
+        {
+            using (var stream = new MemoryStream())
+            {
+                await imgFile.CopyToAsync(stream);
+                var visionUtil = new VisionUtil(_azureSettings);
+                var result = await visionUtil.GetResult(stream);
+                return Json(new
+                {
+                    Captions = result.Description.Captions[0].Text,
+                    Categories = result.Categories.Select(x => x.Name.ToString())
+                });
+            }
         }
     }
 }
