@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CutieShop.API.Controllers
@@ -23,12 +22,7 @@ namespace CutieShop.API.Controllers
         public async Task<JsonResult> Index(string imageUrl)
         {
             var visionUtil = new VisionUtil(_azureSettings);
-            var result = await visionUtil.GetResult(imageUrl);
-            return Json(new
-            {
-                Captions = result.Description.Captions[0].Text,
-                Categories = result.Categories.Select(x => x.Name.ToString())
-            });
+            return Json(await visionUtil.GetResult(imageUrl));
         }
 
         [HttpPost("fromfile")]
@@ -38,12 +32,7 @@ namespace CutieShop.API.Controllers
             {
                 await imgFile.CopyToAsync(stream);
                 var visionUtil = new VisionUtil(_azureSettings);
-                var result = await visionUtil.GetResult(stream);
-                return Json(new
-                {
-                    Captions = result.Description.Captions[0].Text,
-                    Categories = result.Categories.Select(x => x.Name.ToString())
-                });
+                return Json(await visionUtil.GetResult(stream));
             }
         }
     }
