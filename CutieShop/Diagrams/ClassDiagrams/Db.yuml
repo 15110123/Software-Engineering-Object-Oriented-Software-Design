@@ -1,0 +1,32 @@
+// {type:class}
+// {direction:leftToRight}
+// {generate:true}
+[note: Diagram for database designing{bg:cornsilk}]
+[note: Do not use plural noun for entity name]
+//Good table
+[Good|Image|Name|Description|Price]
+[Good]<n-1>[Pet]
+[Good]<n-1>[Accessory]
+[Good]<n-1>[Toy]
+[Good]<n-1>[Cage]
+[Good]<n-1>[Food]
+[Good]<n-1>[Service]
+
+//Pet table 
+[Pet|Size|Longevity|MaxChild|FurDrop|EatingRoutine]
+[Pet]<n-1>[FeedingRoutine]
+[Pet]<n-1>[PetType]
+
+//Accessory table
+[Accessory]<n-1>[Region]
+
+[Nutrition]
+[Region]
+[FeedingRoutine]
+[Account]
+[AccountType]
+[Message]
+[Conversation]
+[Shipment]
+[Advertisement]
+[Region]
