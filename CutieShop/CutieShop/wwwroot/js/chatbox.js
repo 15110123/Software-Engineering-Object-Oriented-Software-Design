@@ -1,4 +1,3 @@
-export default function chatboxMain() {
 $('#chatbox-form-input')[0].spellcheck = false;
 
     //Extend rows if necessary
@@ -24,4 +23,3 @@ $('#chatbox-form-input')[0].spellcheck = false;
         $('#chatbox-container')[0].classList.toggle('hover-fx');
         $('#chatbox-main').toggle();
     });
-}

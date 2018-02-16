@@ -36,6 +36,7 @@
     <None Include="wwwroot\img\svg\ChatBoxIcon.svg" />
     <None Include="wwwroot\img\svg\EmojiIcon.svg" />
     <None Include="wwwroot\img\svg\PhotoIcon.svg" />
+    <None Include="wwwroot\js\chatbox.js" />
     <None Include="wwwroot\js\jquery-3.3.1.min.js" />
     <None Include="wwwroot\webfonts\fa-brands-400.svg" />
     <None Include="wwwroot\webfonts\fa-brands-400.woff2" />

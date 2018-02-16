@@ -1,7 +1,7 @@
 ﻿//ReSharper disable All
 import * as React from "react"
 import "../../css/chatBox/chatbox.css"
-//import jsScript from "../../js/chatbox.js"
+import ElementUtil from "../../ElementUtil"
 
 export class ChatBox extends React.Component<{}, {}> {
     public constructor(props) {
@@ -29,6 +29,6 @@ export class ChatBox extends React.Component<{}, {}> {
     }
 
     componentDidMount() {
-        //jsScript();
+        ElementUtil.addScript("chatbox.js");
     }
 }
