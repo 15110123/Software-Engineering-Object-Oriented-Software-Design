@@ -1,0 +1,70 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/*Id*/
+#logo{
+    text-align: center;
+    margin-bottom: -25px;
+}
+
+#imgLogo{
+    width: 20%;
+    object-fit: contain;
+}
+
+#logoText{
+text-align: center;
+color: #2C812C;
+font-size: 18px;
+}
+
+#searchBar{
+    text-align: center;
+    margin-top: 10px;
+}
+
+#searchInput{
+    border: 1px;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #bdbdbd;
+    width: 27%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#searchText,#searchText::-webkit-input-placeholder{
+    color: #AFAFAF;
+}
+
+#searchText{
+    border: none;
+    width: 100%;
+    font-size: 18px;
+}
+
+#searchText:focus{
+    outline: none;
+}
+
+#submitBtn{
+    display: inline-block;
+    background-image: url("/svg/searchIcon.svg");
+    width: 20px;
+    height: 20px;
+    border: none;
+    vertical-align: middle;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#submitBtn:focus{
+    outline: none;
+}
+
+#SearchForm{
+    display: inline-block;
+    width: 80%;
+    vertical-align: middle;
+}
