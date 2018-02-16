@@ -17,7 +17,11 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="StaticWebTest\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="StaticWebTest\**" />
+    <EmbeddedResource Remove="StaticWebTest\**" />
+    <None Remove="StaticWebTest\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +32,6 @@
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\img\" />
-    <Folder Include="StaticWebTest\Components\" />
   </ItemGroup>
 
   <ItemGroup>
