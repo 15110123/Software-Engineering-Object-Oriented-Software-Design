@@ -21,20 +21,21 @@
 [Store|(Id);Name;Address;IsPrimary;Manager;IsDeleted]
 [Auth|(Id);Username;Password;IsDeleted]
 [Customer|(Id);Address;PhoneNumber;Email]
-[Employee|(Id);Address;DateOfBirth;HomeTown;PhoneNumber;Email;EmpType]
+[Employee|(Id);Address;DateOfBirth;HomeTown;PhoneNumber;Email;EmpType;Store]
 [Score|(Customer);Value]
 [EmpType|(Id);Name]
 [Advertisement|(Id);ImgUrl;Owner]
 [MessageSession|(Id);Employee;Customer;DateStart;DateEnd]
-[Conversation|MessageSession;IsEmployee;Content;ImgUrl]
-[Shipment|(Id);Customer;Shipper;DateOrdered;DateReceived;ShipStatus]
+[Conversation|(Id);(MessageSession);IsEmployee;Content;ImgUrl]
+[Shipment|(Id);Customer;AltAddress;Shipper;DateReceived;ShipStatus]
 [ShipStatus|(Id);Name;Description]
-[Order|(Id);UsedScore;IsDeleted]
+[Order|(Id);UsedScore;DateOrdered;IsDeleted]
 [Post|(Id);Employee;Title;Content;VidUrl;IsDeleted]
 [Documentation|(Id);Type;Owner;HTMLContent]
 [DocType|(Id);Name;Description]
 [PetSize|(Id);Name]
 [Material|(Id);Name]
+[ServiceOnlineOrder|(Id);Service;DateStart;TicketId]
 
 //Good 
 [Good]<1-1>[ShipableGood]
@@ -64,7 +65,8 @@
 [Food]<n-1>[Region]
 
 //Service
-[Service]<n-n>[Pet]
+[Service]<n-1>[Pet]
+[Service]<1-n>[ServiceOnlineOrder]
 
 //Cage
 [Cage]<n-1>[Region]
@@ -76,6 +78,7 @@
 //Employee
 [Employee]<n-1>[EmpType]
 [Employee]<n-1>[Store]
+[Employee]<1-1>[Store]
 [Employee]<1-n>[Post]
 
 //MessageSession
@@ -99,3 +102,7 @@
 //Documentation
 [Documentation]<n-1>[Employee]
 [Documentation]<1-1>[DocType]
+
+//Order
+[Order]<1-1>[ServiceOnlineOrder]
+[Order]<1-1>[Shipment]
