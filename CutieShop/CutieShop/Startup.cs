@@ -1,4 +1,5 @@
 ﻿//Participants: Lê Minh Tân, Lục Thới Sang
+//web: https://cutieshop.azurewebsites.net/
 
 using CutieShop.Models.JSONEntities.Settings;
 using Microsoft.AspNetCore.Builder;
