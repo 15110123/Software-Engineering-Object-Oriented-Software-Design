@@ -49,7 +49,7 @@
                 exportRoot = new lib.main();
                 stage = new lib.Stage(canvas);
                 //Registers the "tick" event listener.
-                fnStartAnimation = function() {
+                fnStartAnimation = function () {
                     stage.addChild(exportRoot);
                     createjs.Ticker.setFPS(lib.properties.fps);
                     createjs.Ticker.addEventListener("tick", stage);
@@ -103,13 +103,14 @@
     else
     {
         <script>
-            function init() {};
+            function init() { };
         </script>
     }
     <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
     <environment exclude="Development">
         <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
     </environment>
+    <link rel="stylesheet" href="css/fontawesome-all.min.css"/>
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 </head>
 <body style="margin: 0;" onload="init();">

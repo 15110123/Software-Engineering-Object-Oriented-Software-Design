@@ -85,3 +85,9 @@ body{
         width: 300px;
     }
 }
+
+@media (max-width: 1366px) {
+    #SearchForm {
+        width: 80%;
+    }
+}

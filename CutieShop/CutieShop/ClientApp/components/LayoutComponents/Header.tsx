@@ -1,6 +1,6 @@
 ﻿import * as React from "react"
 import "../../css/Header/header.css"
-
+import {NavBar} from "./NavBar"
 export class Header extends React.Component<{}, {}> {
     constructor(props) {
         super(props);
@@ -22,14 +22,7 @@ export class Header extends React.Component<{}, {}> {
                            </form>
                        </div>
                    </div>
-                   <div id="navBar">
-                       <div className="row">
-                           <div className="col-sm-1">
-                           </div>
-                           <div className="col-sm-1">
-                           </div>
-                       </div>
-                   </div>
+            <NavBar/>
                </div>;
     }
 }
