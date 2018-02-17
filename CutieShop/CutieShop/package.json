@@ -31,9 +31,5 @@
     "webpack": "3.11.0",
     "webpack-hot-middleware": "2.21.0",
     "popper.js": "1.12.9"
-  },
-  "scripts": {
-    "build": "npm install && npm run webpack",
-    "webpack": "webpack --config webpack.config.vendor.js && webpack"
   }
 }

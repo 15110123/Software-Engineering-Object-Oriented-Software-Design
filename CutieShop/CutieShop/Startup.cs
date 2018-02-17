@@ -4,6 +4,7 @@
 using CutieShop.Models.JSONEntities.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,10 @@ namespace CutieShop
             }
             else
             {
+                //Redirect all HTTP request to HTTPS: https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl
+                var options = new RewriteOptions().AddRedirectToHttps();
+                app.UseRewriter(options);
+
                 app.UseExceptionHandler("/Home/Error");
             }
 
