@@ -76,6 +76,7 @@ user-select: none;
     display: inline-block;
     width: 90%;
     vertical-align: middle;
+    margin-left: 5px;
 }
 
 @media (max-width: 800px)

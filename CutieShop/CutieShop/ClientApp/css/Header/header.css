@@ -22,10 +22,10 @@ body{
 }
 
 #logoText{
-text-align: center;
-color: #2C812C;
-font-size: 18px;
-user-select: none;
+    text-align: center;
+    color: #2C812C;
+    font-size: 18px;
+    user-select: none;
 }
 
 #searchBar{
@@ -76,11 +76,12 @@ user-select: none;
     display: inline-block;
     width: 90%;
     vertical-align: middle;
+    margin-left: 5px;
 }
 
 @media (max-width: 800px)
 {
-#searchInput{
-    width: 300px;
-}
+    #searchInput{
+        width: 300px;
+    }
 }
