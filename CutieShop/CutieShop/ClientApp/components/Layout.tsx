@@ -12,6 +12,7 @@ export class Layout extends React.Component<LayoutProps, {}> {
         return <div>
             <Header/>
             <ChatBox />
+            {this.props.children}
         </div>
     }
 }
