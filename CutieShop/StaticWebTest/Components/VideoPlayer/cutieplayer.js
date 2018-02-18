@@ -95,7 +95,54 @@ p._updateVisibility = _updateVisibility;
 }).prototype = getMCSymbolPrototype(lib.timelineDot, new cjs.Rectangle(0,0,46.1,28), null);
 
 
-(lib.Symbol1 = function(mode,startPosition,loop) {
+(lib.timelineBar = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#F7931E").s().p("Egq+ACMIAAkXMBV9AAAIAAEXg");
+	this.shape.setTransform(275.1,14);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.timelineBar, new cjs.Rectangle(0,0,550.2,28), null);
+
+
+(lib.soundDot = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#2196F3").ss(0.1,1,1).p("ABaAAQAAAmgaAaQgaAagmAAQglAAgagaQgagaAAgmQAAglAagaQAagaAlAAQAmAAAaAaQAaAaAAAlg");
+	this.shape.setTransform(9,9);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#2196F3").s().p("Ag/A/QgagaAAglQAAglAagaQAbgaAkAAQAlAAAbAaQAaAaAAAlQAAAlgaAaQgbAbglAAQgkAAgbgbg");
+	this.shape_1.setTransform(9,9);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.soundDot, new cjs.Rectangle(-1,-1,20,20), null);
+
+
+(lib.soundBar = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#999999").ss(0.1,1,1).p("AoWgsIQtAAIAABZIwtAAg");
+	this.shape.setTransform(53.5,4.5);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#FFFFFF").s().p("AoWAtIAAhZIQtAAIAABZg");
+	this.shape_1.setTransform(53.5,4.5);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.soundBar, new cjs.Rectangle(-1,-1,109,11), null);
+
+
+(lib.playButton = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
@@ -145,7 +192,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_10},{t:this.shape_9},{t:this.shape_8},{t:this.shape_7},{t:this.shape_6},{t:this.shape_5},{t:this.shape_4},{t:this.shape_3},{t:this.shape_2},{t:this.shape_1},{t:this.shape}]}).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.Symbol1, new cjs.Rectangle(-18.4,-18.5,37,37), null);
+}).prototype = getMCSymbolPrototype(lib.playButton, new cjs.Rectangle(-18.4,-18.5,37,37), null);
 
 
 (lib.pauseButton = function(mode,startPosition,loop) {
@@ -170,7 +217,7 @@ p._updateVisibility = _updateVisibility;
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#000000").s().p("Egq+AD7IAAn1MBV9AAAIAAH1g");
+	this.shape.graphics.f("#333333").s().p("Egq+AD7IAAn1MBV9AAAIAAH1g");
 	this.shape.setTransform(275.1,25.1);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
@@ -187,37 +234,71 @@ if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{});
 	this.frame_0 = function() {
 		this.timelineDot.x = 0;
 		
-		this.playButtion.addEventListener("click", playClickHandler.bind(this));
+		this.playButton.addEventListener("click", playClickHandler.bind(this));
 		this.pauseButton.addEventListener("click", pauseClickHandler.bind(this));
+		this.timelineBar.addEventListener("click", timelineBarClickHandler.bind(this));
+		this.soundDot.addEventListener("pressmove", soundDotPressMoveHandler.bind(this));
 		
 		function playClickHandler() {
 			this.pauseButton.visible = true;
-			this.playButtion.visible = false;
+			this.playButton.visible = false;
 			$("#mainClip")[0].play();
-			$("#mainClip")[0].style.zIndex = -1;
 			$('#mainClip').on('timeupdate', () => {
-			this.timelineDot.x = $('#mainClip')[0].currentTime / $('#mainClip')[0].duration * 546;
-		});
+				this.timelineDot.x = $('#mainClip')[0].currentTime / $('#mainClip')[0].duration * 546;
+			});
+			$('#mainClip').on('ended', () => {
+				this.pauseButton.visible = false;
+				this.playButton.visible = true;
+			});
 		}
 		
 		
 		function pauseClickHandler() {
 			this.pauseButton.visible = false;
-			this.playButtion.visible = true;
+			this.playButton.visible = true;
 			$("#mainClip")[0].pause();
+		}
+		
+		function timelineBarClickHandler() {
+			//Coordinate can be changed by browser resize as coor = preCoor * scale
+			let mousePos = stage.mouseX / stage.scaleX;
+			$('#mainClip')[0].currentTime = mousePos / 546 * $('#mainClip')[0].duration;
+		}
+		
+		//Sound
+		function soundDotPressMoveHandler() {
+			let newX = stage.mouseX / stage.scaleX;
+			if (newX > 176 || newX < 67) return;
+			this.soundDot.x = newX;
+			$('#mainClip')[0].volume = (this.soundDot.x - 67) / 109;
 		}
 	}
 
 	// actions tween:
 	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
 
-	// flash0.ai
-	this.playButtion = new lib.Symbol1();
-	this.playButtion.name = "playButtion";
-	this.playButtion.parent = this;
-	this.playButtion.setTransform(29.5,375.7);
+	// Layer_3
+	this.soundDot = new lib.soundDot();
+	this.soundDot.name = "soundDot";
+	this.soundDot.parent = this;
+	this.soundDot.setTransform(175,374.4,1,1,0,0,0,9,9);
+	new cjs.ButtonHelper(this.soundDot, 0, 1, 1);
 
-	this.timeline.addTween(cjs.Tween.get(this.playButtion).wait(1));
+	this.soundBar = new lib.soundBar();
+	this.soundBar.name = "soundBar";
+	this.soundBar.parent = this;
+	this.soundBar.setTransform(122.5,374.7,1,1,0,0,0,53.5,4.5);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.soundBar},{t:this.soundDot}]}).wait(1));
+
+	// flash0.ai
+	this.playButton = new lib.playButton();
+	this.playButton.name = "playButton";
+	this.playButton.parent = this;
+	this.playButton.setTransform(29.5,375.7);
+	new cjs.ButtonHelper(this.playButton, 0, 1, 1);
+
+	this.timeline.addTween(cjs.Tween.get(this.playButton).wait(1));
 
 	// flash0.ai
 	this.pauseButton = new lib.pauseButton();
@@ -225,6 +306,7 @@ if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{});
 	this.pauseButton.parent = this;
 	this.pauseButton.setTransform(27.7,375.7,1,1,0,0,0,16.6,18.5);
 	this.pauseButton.visible = false;
+	new cjs.ButtonHelper(this.pauseButton, 0, 1, 1);
 
 	this.timeline.addTween(cjs.Tween.get(this.pauseButton).wait(1));
 
@@ -240,16 +322,21 @@ if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{});
 	this.instance = new lib.controlBar("synched",0);
 	this.instance.parent = this;
 	this.instance.setTransform(275.2,374.1,1,1,0,0,0,275.1,25.1);
-	this.instance.alpha = 0.398;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 	// Layer_1
+	this.timelineBar = new lib.timelineBar();
+	this.timelineBar.name = "timelineBar";
+	this.timelineBar.parent = this;
+	this.timelineBar.setTransform(275.2,335.1,1,1,0,0,0,275.1,14);
+	new cjs.ButtonHelper(this.timelineBar, 0, 1, 1);
+
 	this.mainClip = new lib.an_Video({'id': 'mainClip', 'src':'https://github.com/mediaelement/mediaelement-files/blob/master/echo-hereweare.mp4?raw=true', 'autoplay':false, 'controls':false, 'muted':false, 'loop':false, 'poster':'https://fthmb.tqn.com/jmqCh_LgA1bMcoBDQQqx91HPpaA=/1280x853/filters:fill(auto,1)/a0047-000145-56a2bce25f9b58b7d0cdf7cf.jpg', 'preload':true, 'class':'video'});
 
 	this.mainClip.setTransform(275.1,160.5,1.376,1.07,0,0,0,200,150);
 
-	this.timeline.addTween(cjs.Tween.get(this.mainClip).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.mainClip},{t:this.timelineBar}]}).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(274.3,199.5,551.6,399.7);
@@ -262,9 +349,9 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"https://code.jquery.com/jquery-2.2.4.min.js?1518619391192", id:"lib/jquery-2.2.4.min.js"},
-		{src:"components/sdk/anwidget.js?1518619391192", id:"sdk/anwidget.js"},
-		{src:"components/video/src/video.js?1518619391192", id:"an.Video"}
+		{src:"https://code.jquery.com/jquery-2.2.4.min.js", id:"lib/jquery-2.2.4.min.js"},
+		{src:"components/sdk/anwidget.js", id:"sdk/anwidget.js"},
+		{src:"components/video/src/video.js", id:"an.Video"}
 	],
 	preloads: []
 };
