@@ -20,6 +20,7 @@
 [Service|(Id);Pet]
 [Store|(Id);Name;Address;IsPrimary;Manager;IsDeleted]
 [Auth|(Id);Username;Password;IsDeleted]
+[AuthSession|(Id);Auth;IsDeleted]
 [Customer|(Id);Address;PhoneNumber;Email]
 [Employee|(Id);Address;DateOfBirth;HomeTown;PhoneNumber;Email;EmpType;Store]
 [Score|(Customer);Value]
@@ -106,6 +107,7 @@
 //Auth
 [Auth]<1-1>[Customer]
 [Auth]<1-1>[Employee]
+[Auth]<1-n>[AuthSession]
 
 //Documentation
 [Documentation]<n-1>[Employee]
