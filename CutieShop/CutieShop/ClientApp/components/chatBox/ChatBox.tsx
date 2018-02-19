@@ -1,6 +1,6 @@
 ﻿//ReSharper disable All
 import * as React from "react"
-import "../../css/chatBox/chatbox.css"
+import "../../css/ChatBox/chatbox.css"
 import ElementUtil from "../../ElementUtil"
 
 export class ChatBox extends React.Component<{}, {}> {

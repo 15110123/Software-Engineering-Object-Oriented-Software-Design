@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\css\LinkBar\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
