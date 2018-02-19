@@ -36,6 +36,7 @@
 [PetSize|(Id);Name]
 [Material|(Id);Name]
 [ServiceOnlineOrder|(Id);Service;DateStart;TicketId]
+[Import|(Id);Date;Employee;Store;IsDeleted]
 
 //Good 
 [Good]<1-1>[ShipableGood]
@@ -46,6 +47,7 @@
 [ShipableGood]<1-1>[Food]
 [Good]<1-1>[Service]
 [Good]<n-n>[Order]
+[Good]<n-n>[Import]
 
 //Pet 
 [Pet]<n-1>[FeedingRoutine]
@@ -80,6 +82,7 @@
 [Employee]<n-1>[Store]
 [Employee]<1-1>[Store]
 [Employee]<1-n>[Post]
+[Employee]<1-n>[Import]
 
 //MessageSession
 [MessageSession]<1-n>[Conversation]
@@ -106,3 +109,6 @@
 //Order
 [Order]<1-1>[ServiceOnlineOrder]
 [Order]<1-1>[Shipment]
+
+//Store
+[Store]<1-n>[Import]
