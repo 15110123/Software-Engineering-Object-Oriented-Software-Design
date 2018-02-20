@@ -1,10 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Trang chủ";
 }
 
 <div id="react-app">
 </div>
 
 @section scripts {
+    <script>
+        this.window.sessionId = "@Model.SessionId";
+        this.window.mainAPI = "@Model.MainAPI";
+        this.window.dbAPI = "@Model.DbAPI";
+    </script>
     <script src="~/dist/main.js" asp-append-version="true"></script>
 }
