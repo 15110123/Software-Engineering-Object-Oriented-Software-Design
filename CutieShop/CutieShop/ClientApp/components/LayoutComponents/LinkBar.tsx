@@ -1,11 +1,13 @@
 ﻿import * as React from "react"
 import "../../css/LinkBar/linkbar.css"
+import { Link } from "react-router-dom"
 
-export class LinkBar extends React.Component<{ drawerBtnClick?: Function, isLoggedIn: boolean }, {}> {
+export class LinkBar extends React.Component<{ drawerBtnClick?: Function, loginLinkClick?: Function, isLoggedIn: boolean }, {}> {
 
     constructor(props) {
         super(props);
         this.drawerBtnClick = this.drawerBtnClick.bind(this);
+        this.loginLinkClick = this.loginLinkClick.bind(this);
     }
 
     render() {
@@ -23,20 +25,25 @@ export class LinkBar extends React.Component<{ drawerBtnClick?: Function, isLogg
 
     renderLoggedIn() {
         return <span id="profileBar">
-                   <label>Chào bạn {window.user.Name}!</label>
-                   <img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/68dd54ca-60cf-4ef7-898b-26d7cbe48ec7/10-dithering-opt.jpg" alt="Profile image"/>
-                   <label id="drawerBtn" onClick={this.drawerBtnClick}>&#9776;</label>
-               </span>;
+            <label>Chào bạn {window.user.Name}!</label>
+            <img src={window.user.ProfileImg} alt="Profile image" />
+            <label id="drawerBtn" onClick={this.drawerBtnClick}>&#9776;</label>
+        </span>;
     }
 
     renderNotLoggedIn() {
         return <span id="profileBar">
-                       <a href="#">Đăng nhập</a>
-               </span>;
+            <Link to="/login" onClick={this.loginLinkClick}>Đăng nhập</Link>
+        </span>;
     }
 
     drawerBtnClick() {
         if (this.props.drawerBtnClick == null) return;
         this.props.drawerBtnClick();
+    }
+
+    loginLinkClick() {
+        if (this.props.loginLinkClick == null) return;
+        this.props.loginLinkClick();
     }
 }

@@ -8,5 +8,6 @@ export const routes = <Layout>
     <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/search" component={Search} />
+        <Route exact path="/login" component={Home}/>
     </Switch>
 </Layout>;
