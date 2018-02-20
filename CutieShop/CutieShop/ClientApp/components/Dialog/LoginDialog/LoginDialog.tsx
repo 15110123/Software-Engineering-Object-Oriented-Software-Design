@@ -5,12 +5,12 @@ import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 import "../../../css/Dialogs/logindialog.css"
 
-export class LoginDialog extends React.Component<{ loginSuccess?: Function }, { isOpen: boolean }> {
+export class LoginDialog extends React.Component<{ loginSuccess?: Function, open : boolean }, { isOpen: boolean }> {
     actions;
 
     constructor(props) {
         super(props);
-        this.state = { isOpen: false };
+        this.state = { isOpen: this.props.open };
         this.loginClick = this.loginClick.bind(this);
         this.toggleDialog = this.toggleDialog.bind(this);
 

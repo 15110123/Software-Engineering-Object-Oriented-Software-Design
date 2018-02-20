@@ -25,7 +25,7 @@ export class Layout extends React.Component<LayoutProps, {isLoggedIn : boolean}>
 
     public render() {
         return <div>
-            <LoginDialog ref={(o) => {this.loginDialog = o}} loginSuccess={this.setToLoggedIn}/>
+            <LoginDialog ref={(o) => { this.loginDialog = o }} loginSuccess={this.setToLoggedIn} open={window.location.pathname === "/login"}/>
             {this.state.isLoggedIn && <Drawer ref={(o) => { this.drawer = o }} />}
             <LinkBar drawerBtnClick={this.toggleDrawer} loginLinkClick={this.toggleLoginDialog} isLoggedIn={this.state.isLoggedIn}/>
             <Header/>

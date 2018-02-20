@@ -3,7 +3,9 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
 export class Home extends React.Component<RouteComponentProps<{}>, {}> {
-    params = new URLSearchParams(this.props.location.search);
+    constructor(props) {
+        super(props);
+    }
 
     public render() {
         return <div>
