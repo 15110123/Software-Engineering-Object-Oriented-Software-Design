@@ -1,6 +1,6 @@
 //ReSharper disable All
 import * as React from 'react';
-import { ChatBox } from "./chatBox/ChatBox";
+import { ChatBox } from "./ChatBox/ChatBox";
 import {Header} from "./LayoutComponents/Header"
 import {Drawer} from "./LayoutComponents/Drawer/Drawer"
 import {LinkBar} from "./LayoutComponents/LinkBar"
@@ -19,8 +19,8 @@ export class Layout extends React.Component<LayoutProps, {}> {
 
     public render() {
         return <div>
-            <Drawer ref={(o) => {this.drawer = o}}/>
-            <LinkBar drawerBtnClick={this.drawerBtnClick}/>
+            {window.user == null || <Drawer ref={(o) => { this.drawer = o }} />}
+            <LinkBar drawerBtnClick={this.drawerBtnClick} isLoggedIn={window.user != null}/>
             <Header/>
             <ChatBox />
             {this.props.children}

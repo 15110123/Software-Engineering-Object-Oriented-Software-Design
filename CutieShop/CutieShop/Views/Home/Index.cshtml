@@ -12,6 +12,7 @@
         this.window.sessionId = "@Model.SessionId";
         this.window.mainAPI = "@Model.MainAPI";
         this.window.dbAPI = "@Model.DbAPI";
+        this.window.user = @Json.Serialize(Model.User);
     </script>
     <script src="~/dist/main.js" asp-append-version="true"></script>
 }

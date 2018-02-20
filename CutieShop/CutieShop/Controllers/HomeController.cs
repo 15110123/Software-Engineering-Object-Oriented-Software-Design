@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
+﻿using CutieShop.Models.JSONEntities.Settings;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Dynamic;
-using CutieShop.Models.JSONEntities.Settings;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
 
 namespace CutieShop.Controllers
 {
@@ -23,7 +20,17 @@ namespace CutieShop.Controllers
             dynamic responseData = new ExpandoObject();
             responseData.MainAPI = _apiSettings.Url.MainUrl;
             responseData.DbAPI = _apiSettings.Url.DbUrl;
-            responseData.SessionId = "";
+            responseData.SessionId = null;
+            responseData.User = null;
+
+            //If user has logged in
+            if (false)
+            {
+                responseData.User = new ExpandoObject();
+                responseData.User.Name = "Nguyễn Văn A";
+                responseData.User.Point = 25;
+            }
+
             return View(responseData);
         }
 
