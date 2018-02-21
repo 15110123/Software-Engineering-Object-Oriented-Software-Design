@@ -19,7 +19,7 @@
 [Nutrition|(Id);Name]
 [Service|(Id);Pet]
 [Store|(Id);Name;Address;IsPrimary;Manager;IsDeleted]
-[Auth|(Id);Username;Password;ProfileImg;IsDeleted]
+[Auth|(Id);Username;Password;Name;ProfileImg;IsDeleted]
 [AuthSession|(Id);Auth;IsDeleted]
 [Customer|(Id);Address;PhoneNumber;Email]
 [Employee|(Id);Address;DateOfBirth;HomeTown;PhoneNumber;Email;EmpType;Store]

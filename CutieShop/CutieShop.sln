@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutieShop", "CutieShop\CutieShop.csproj", "{E5A83FD3-76B6-4EE6-BCAE-90E87DC83343}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutieShop.API", "CutieShopAPI\CutieShop.API.csproj", "{1EA6857C-0695-4D3C-BF37-25B662559ED3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutieShop.API.DB", "CutieShop.API.DB\CutieShop.API.DB.csproj", "{F8F8863C-F68F-4551-827F-7921CEFA59B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutieShop.API.DB", "CutieShop.API.DB\CutieShop.API.DB.csproj", "{F8F8863C-F68F-4551-827F-7921CEFA59B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,42 +1,26 @@
 ﻿//ReSharper disable All
-using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CutieShop.API.DB.Models.DAO
 {
     public abstract class DAO<TId, TObj> : IDAO<TId, TObj>
     {
-        private dynamic DbContext;
+        protected dynamic DbContext;
 
-        protected DAO(dynamic dbContext)
+        protected DAO()
         {
-            DbContext = dbContext;
         }
 
-        public bool Create(TObj obj)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Task<bool> Create(TObj obj);
 
-        public TObj Read(TId id)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Task<TObj> Read(TId id);
 
-        public IEnumerable<TObj> ReadAll()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Task<IEnumerable<TObj>> ReadAll();
 
-        public bool Update(TObj obj)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Task<bool> Update(TObj obj);
 
-        public bool Delete(TId id)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Task<bool> Delete(TId id);
 
         public void Dispose()
         {

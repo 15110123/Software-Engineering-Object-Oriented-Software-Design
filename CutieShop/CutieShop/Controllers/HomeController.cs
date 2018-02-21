@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Threading.Tasks;
 
 namespace CutieShop.Controllers
 {
@@ -15,7 +16,7 @@ namespace CutieShop.Controllers
             _apiSettings = apiSettings.Value;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             dynamic responseData = new ExpandoObject();
             responseData.MainAPI = _apiSettings.Url.MainUrl;
