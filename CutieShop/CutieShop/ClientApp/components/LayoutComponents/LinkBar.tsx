@@ -33,7 +33,7 @@ export class LinkBar extends React.Component<{ drawerBtnClick?: Function, loginL
 
     renderNotLoggedIn() {
         return <span id="profileBar">
-            <Link to="/login" onClick={this.loginLinkClick}>Đăng nhập</Link>
+            <a href="#" onClick={this.loginLinkClick}>Đăng nhập</a>
         </span>;
     }
 
@@ -42,7 +42,8 @@ export class LinkBar extends React.Component<{ drawerBtnClick?: Function, loginL
         this.props.drawerBtnClick();
     }
 
-    loginLinkClick() {
+    loginLinkClick(o) {
+        o.preventDefault();
         if (this.props.loginLinkClick == null) return;
         this.props.loginLinkClick();
     }
