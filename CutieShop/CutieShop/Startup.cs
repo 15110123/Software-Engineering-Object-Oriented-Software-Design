@@ -3,10 +3,8 @@
 
 using System;
 using CutieShop.Models.JSONEntities.Settings;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -26,15 +24,14 @@ namespace CutieShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(option =>
-                {
-                    option.ExpireTimeSpan = TimeSpan.FromDays(30);
-                    option.LoginPath = "/";
-                    option.LogoutPath = "/logout";
-                });
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromDays(1);
+                options.Cookie.HttpOnly = true;
+            });
             services.Configure<APISettings>(Configuration.GetSection("APISettings"));
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,12 +45,6 @@ namespace CutieShop
                     HotModuleReplacement = true,
                     ReactHotModuleReplacement = true
                 });
-
-                app.UseCookiePolicy(new CookiePolicyOptions
-                {
-                    MinimumSameSitePolicy = SameSiteMode.Strict,
-                    Secure = CookieSecurePolicy.None
-                });
             }
             else
             {
@@ -62,17 +53,11 @@ namespace CutieShop
                 app.UseRewriter(options);
 
                 app.UseExceptionHandler("/Home/Error");
-
-                app.UseCookiePolicy(new CookiePolicyOptions
-                {
-                    MinimumSameSitePolicy = SameSiteMode.Strict,
-                    Secure = CookieSecurePolicy.Always
-                });
             }
 
             app.UseStaticFiles();
 
-            app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

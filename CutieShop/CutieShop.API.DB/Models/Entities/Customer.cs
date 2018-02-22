@@ -17,7 +17,7 @@ namespace CutieShop.API.DB.Models.Entities
         public string Email { get; set; }
 
         public Auth IdNavigation { get; set; }
-        public Score Score { get; set; }
+        public Point Point { get; set; }
         public ICollection<MessageSession> MessageSessions { get; set; }
         public ICollection<Shipment> Shipments { get; set; }
     }

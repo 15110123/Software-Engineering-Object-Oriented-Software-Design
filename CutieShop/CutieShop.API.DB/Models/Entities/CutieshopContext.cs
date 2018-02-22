@@ -37,9 +37,9 @@ namespace CutieShop.API.DB.Models.Entities
         public virtual DbSet<Pet> Pets { get; set; }
         public virtual DbSet<PetSize> PetSizes { get; set; }
         public virtual DbSet<PetType> PetTypes { get; set; }
+        public virtual DbSet<Point> Points { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Region> Regions { get; set; }
-        public virtual DbSet<Score> Scores { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<ServiceOnlineOrder> ServiceOnlineOrders { get; set; }
         public virtual DbSet<ShipableGood> ShipableGoods { get; set; }
@@ -873,6 +873,24 @@ namespace CutieShop.API.DB.Models.Entities
                     .HasMaxLength(100);
             });
 
+            modelBuilder.Entity<Point>(entity =>
+            {
+                entity.HasKey(e => e.Customer);
+
+                entity.ToTable("Point");
+
+                entity.Property(e => e.Customer)
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.HasOne(d => d.CustomerNavigation)
+                    .WithOne(p => p.Point)
+                    .HasForeignKey<Point>(d => d.Customer)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Score_Customer_Id_fk");
+            });
+
             modelBuilder.Entity<Post>(entity =>
             {
                 entity.ToTable("Post");
@@ -916,24 +934,6 @@ namespace CutieShop.API.DB.Models.Entities
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<Score>(entity =>
-            {
-                entity.HasKey(e => e.Customer);
-
-                entity.ToTable("Score");
-
-                entity.Property(e => e.Customer)
-                    .HasMaxLength(36)
-                    .IsUnicode(false)
-                    .ValueGeneratedNever();
-
-                entity.HasOne(d => d.CustomerNavigation)
-                    .WithOne(p => p.Score)
-                    .HasForeignKey<Score>(d => d.Customer)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Score_Customer_Id_fk");
             });
 
             modelBuilder.Entity<Service>(entity =>

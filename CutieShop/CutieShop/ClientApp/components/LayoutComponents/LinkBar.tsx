@@ -25,8 +25,8 @@ export class LinkBar extends React.Component<{ drawerBtnClick?: Function, loginL
 
     renderLoggedIn() {
         return <span id="profileBar">
-            <label>Chào bạn {window.user.Name}!</label>
-            <img src={window.user.ProfileImg} alt="Profile image" />
+            <label>Chào bạn {window.user.name}!</label>
+            <img src={window.user.profileImg} alt="Profile image" />
             <label id="drawerBtn" onClick={this.drawerBtnClick}>&#9776;</label>
         </span>;
     }

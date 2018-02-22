@@ -4,6 +4,9 @@ using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace CutieShop.Controllers
 {
@@ -18,23 +21,48 @@ namespace CutieShop.Controllers
 
         public async Task<IActionResult> Index()
         {
-            dynamic responseData = new ExpandoObject();
-            responseData.MainAPI = _apiSettings.Url.MainUrl;
-            responseData.DbAPI = _apiSettings.Url.DbUrl;
-            responseData.SessionId = null;
-            responseData.User = null;
+            dynamic model = new ExpandoObject();
+            model.MainAPI = _apiSettings.Url.MainUrl;
+            model.DbAPI = _apiSettings.Url.DbUrl;
 
-            //If user has logged in
-            if (false)
+            model.SessionId = HttpContext.Request.Cookies["sessionId"] ?? HttpContext.Session.GetString("sessionId");
+            string userRawData = null;
+
+            if (model.SessionId != null)
             {
-                responseData.User = new ExpandoObject();
-                responseData.User.Name = "Nguyễn Văn A";
-                responseData.User.Point = 25;
-                responseData.User.ProfileUrl =
-                    "https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/68dd54ca-60cf-4ef7-898b-26d7cbe48ec7/10-dithering-opt.jpg";
+                var client = new RestClient(_apiSettings.Url.DbUrl + "/api/auth/session");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("Postman-Token", model.SessionId);
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("content-type", "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW");
+                request.AddParameter("multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW", "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"sessionId\"\r\n\r\n07f8833b-674e-4226-b164-d35c40a40105\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--", ParameterType.RequestBody);
+                var response = client.Execute(request);
+                userRawData = response.Content;
             }
 
-            return View(responseData);
+            model.User = null;
+
+            //If user has logged in
+            if (!string.IsNullOrEmpty(userRawData))
+            {
+                model.User = JsonConvert.DeserializeObject(userRawData);
+            }
+
+            return View(model);
+        }
+
+        //Saving session action
+        [HttpPost("savesession")]
+        public void SaveSession(string sessionId)
+        {
+            HttpContext.Session.SetString("sessionId", sessionId);
+        }
+
+        //Removing session action
+        [HttpPost("removesession")]
+        public void RemoveSession(string sessionId)
+        {
+            HttpContext.Session.Remove("sessionId");
         }
 
         public IActionResult Error()

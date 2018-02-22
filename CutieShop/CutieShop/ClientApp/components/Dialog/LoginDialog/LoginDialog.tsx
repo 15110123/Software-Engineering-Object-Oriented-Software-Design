@@ -6,9 +6,10 @@ import TextField from "material-ui/TextField"
 import "../../../css/Dialogs/logindialog.css"
 import Checkbox from "material-ui/Checkbox"
 import * as $ from "jquery"
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from "material-ui/Snackbar";
+import Cookies from "js-cookie";
 
-export class LoginDialog extends React.Component<{ loginSuccessHandler?: Function, open: boolean }, { isOpen: boolean, isLoginCheck: boolean, isSuccess: boolean | null }> {
+export class LoginDialog extends React.Component<{ loginSuccessHandler?: Function, open: boolean }, { isOpen: boolean, isSaveLoginCheck: boolean, isSuccess: boolean | null }> {
     actions;
 
     username: string;
@@ -20,7 +21,7 @@ export class LoginDialog extends React.Component<{ loginSuccessHandler?: Functio
         this.username = "";
         this.password = "";
 
-        this.state = { isOpen: this.props.open, isLoginCheck: false, isSuccess: null };
+        this.state = { isOpen: this.props.open, isSaveLoginCheck: false, isSuccess: null };
         this.loginClick = this.loginClick.bind(this);
         this.toggleDialog = this.toggleDialog.bind(this);
         this.updateCheck = this.updateCheck.bind(this);
@@ -63,11 +64,11 @@ export class LoginDialog extends React.Component<{ loginSuccessHandler?: Functio
     }
 
     renderCheckBox(label) {
-        return <Checkbox label={label} checked={this.state.isLoginCheck} onCheck={this.updateCheck} />;
+        return <Checkbox label={label} checked={this.state.isSaveLoginCheck} onCheck={this.updateCheck} />;
     }
 
     updateCheck() {
-        this.setState({ isLoginCheck: !this.state.isLoginCheck });
+        this.setState({ isSaveLoginCheck: !this.state.isSaveLoginCheck });
     }
 
     updateUsername(o, v) {
@@ -105,16 +106,44 @@ export class LoginDialog extends React.Component<{ loginSuccessHandler?: Functio
 
         const res = JSON.parse($.ajax(settings).responseText);
 
+        //Fail login
         if (res == null) {
             this.setState({ isSuccess: false });
             return;
         }
 
+        //Success
+        if (this.state.isSaveLoginCheck) {
+            Cookies.set("sessionId",
+                res.sessionId,
+                {
+                    expires: 30
+                });
+        } else {
+            const sessionForm = new FormData();
+            sessionForm.append("sessionId", res.sessionId);
+
+            const sessionSettings = {
+                "async": false,
+                "crossDomain": true,
+                "url": "/savesession",
+                "method": "POST",
+                "headers": {
+                    "Cache-Control": "no-cache"
+                },
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": sessionForm
+            };
+
+            $.ajax(sessionSettings);
+        }
         this.setState({ isSuccess: true });
 
         this.toggleDialog();
         //Testing profile 
-        window.user = { Name: res.name, Point: res.customer.score, ProfileImg: res.profileImg };
+        window.user = res;
         if (this.props.loginSuccessHandler == null) return;
         this.props.loginSuccessHandler();
     }

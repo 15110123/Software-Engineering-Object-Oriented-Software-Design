@@ -3,10 +3,10 @@ import * as React from "react"
 import MuiDrawer from "material-ui/Drawer"
 import MuiMenuItem from "material-ui/MenuItem"
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
-import {DrawerProfile} from "./DrawerProfile"
+import { DrawerProfile } from "./DrawerProfile"
 import "./../../../css/Drawer/drawer.css"
 
-export class Drawer extends React.Component<{}, {isOpen:boolean}> { 
+export class Drawer extends React.Component<{}, { isOpen: boolean }> {
     constructor(props) {
         super(props);
         this.state = { isOpen: false };
