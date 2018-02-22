@@ -10,12 +10,12 @@ export class Drawer extends React.Component<{}, { isOpen: boolean }> {
     constructor(props) {
         super(props);
         this.state = { isOpen: false };
-        this.toggleDrawer = this.toggleDrawer.bind(this);
+        this.toggleDrawerHandler = this.toggleDrawerHandler.bind(this);
     }
 
     render() {
         return <MuiThemeProvider>
-            <MuiDrawer docked={false} width={300} open={this.state.isOpen} onRequestChange={this.toggleDrawer} openSecondary={true} className="muiDrawer">
+            <MuiDrawer docked={false} width={300} open={this.state.isOpen} onRequestChange={this.toggleDrawerHandler} openSecondary={true} className="muiDrawer">
                 <DrawerProfile imgUrl="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/68dd54ca-60cf-4ef7-898b-26d7cbe48ec7/10-dithering-opt.jpg"/>
                 <MuiMenuItem className="muiMenuItem">Thông tin tài khoản</MuiMenuItem>
                 <MuiMenuItem className="muiMenuItem">Giỏ hàng</MuiMenuItem>
@@ -24,7 +24,7 @@ export class Drawer extends React.Component<{}, { isOpen: boolean }> {
         </MuiThemeProvider>;
     }
 
-    toggleDrawer() {
+    toggleDrawerHandler() {
         this.setState({ isOpen: !(this.state.isOpen) });
     }
 }

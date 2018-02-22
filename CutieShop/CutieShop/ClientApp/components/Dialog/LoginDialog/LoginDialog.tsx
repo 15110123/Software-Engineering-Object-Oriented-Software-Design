@@ -22,17 +22,18 @@ export class LoginDialog extends React.Component<{ loginSuccessHandler?: Functio
         this.password = "";
 
         this.state = { isOpen: this.props.open, isSaveLoginCheck: false, isSuccess: null };
-        this.loginClick = this.loginClick.bind(this);
-        this.toggleDialog = this.toggleDialog.bind(this);
-        this.updateCheck = this.updateCheck.bind(this);
-        this.updateUsername = this.updateUsername.bind(this);
-        this.updatePassword = this.updatePassword.bind(this);
+        this.loginClickHandler = this.loginClickHandler.bind(this);
+        this.toggleDialogHandler = this.toggleDialogHandler.bind(this);
+        this.updateCheckHandler = this.updateCheckHandler.bind(this);
+        this.updateUsernameHandler = this.updateUsernameHandler.bind(this);
+        this.updatePasswordHandler = this.updatePasswordHandler.bind(this);
+        this.snackBarCloseHandler = this.snackBarCloseHandler.bind(this);
 
         this.actions = [
             <FlatButton
                 label="Đăng nhập"
                 primary={true}
-                onClick={this.loginClick} />
+                onClick={this.loginClickHandler} />
         ];
     }
 
@@ -42,13 +43,14 @@ export class LoginDialog extends React.Component<{ loginSuccessHandler?: Functio
                 <Snackbar
                     open={this.state.isSuccess != null && !this.state.isSuccess}
                     message="Đăng nhập thất bại"
-                    autoHideDuration={4000} />
+                    autoHideDuration={4000}
+                    onRequestClose={this.snackBarCloseHandler}/>
             </MuiThemeProvider>
             <MuiThemeProvider>
                 <Dialog title="Đăng nhập" actions={this.actions} modal={false} open={this.state.isOpen} onRequestClose={
-                    this.toggleDialog} paperClassName="loginDialog">
-                    {this.renderTextField("Tên đăng nhập", false, this.updateUsername)}
-                    {this.renderTextField("Mật khẩu", true, this.updatePassword)}
+                    this.toggleDialogHandler} paperClassName="loginDialog">
+                    {this.renderTextField("Tên đăng nhập", false, this.updateUsernameHandler)}
+                    {this.renderTextField("Mật khẩu", true, this.updatePasswordHandler)}
                     {this.renderCheckBox("Duy trì đăng nhập")}
                 </Dialog>
             </MuiThemeProvider>;
@@ -64,26 +66,30 @@ export class LoginDialog extends React.Component<{ loginSuccessHandler?: Functio
     }
 
     renderCheckBox(label) {
-        return <Checkbox label={label} checked={this.state.isSaveLoginCheck} onCheck={this.updateCheck} />;
+        return <Checkbox label={label} checked={this.state.isSaveLoginCheck} onCheck={this.updateCheckHandler} />;
     }
 
-    updateCheck() {
+    snackBarCloseHandler() {
+        this.setState({ isSuccess: null });
+    }
+
+    updateCheckHandler() {
         this.setState({ isSaveLoginCheck: !this.state.isSaveLoginCheck });
     }
 
-    updateUsername(o, v) {
+    updateUsernameHandler(o, v) {
         this.username = v;
     }
 
-    updatePassword(o, v) {
+    updatePasswordHandler(o, v) {
         this.password = v;
     }
 
-    toggleDialog() {
+    toggleDialogHandler() {
         this.setState({ isOpen: !this.state.isOpen });
     }
 
-    loginClick() {
+    loginClickHandler() {
         //Add "checking auth" codes here 
 
         const form = new FormData();
@@ -141,7 +147,7 @@ export class LoginDialog extends React.Component<{ loginSuccessHandler?: Functio
         }
         this.setState({ isSuccess: true });
 
-        this.toggleDialog();
+        this.toggleDialogHandler();
         //Testing profile 
         window.user = res;
         if (this.props.loginSuccessHandler == null) return;

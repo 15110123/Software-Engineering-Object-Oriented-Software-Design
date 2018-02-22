@@ -16,7 +16,7 @@ export class Layout extends React.Component<LayoutProps, {isLoggedIn : boolean}>
 
     constructor(props) {
         super(props);
-        this.toggleDrawer = this.toggleDrawer.bind(this);
+        this.toggleDrawerHandler = this.toggleDrawerHandler.bind(this);
         this.toggleLoginDialog = this.toggleLoginDialog.bind(this);
         this.setToLoggedIn = this.setToLoggedIn.bind(this);
 
@@ -27,19 +27,19 @@ export class Layout extends React.Component<LayoutProps, {isLoggedIn : boolean}>
         return <div>
             <LoginDialog ref={(o) => this.loginDialog = o} loginSuccessHandler={this.setToLoggedIn} open={window.location.pathname === "/login" && !this.state.isLoggedIn}/>
             {this.state.isLoggedIn && <Drawer ref={(o) => this.drawer = o}/>}
-            <LinkBar drawerBtnClick={this.toggleDrawer} loginLinkClick={this.toggleLoginDialog} isLoggedIn={this.state.isLoggedIn}/>
+            <LinkBar drawerBtnClick={this.toggleDrawerHandler} loginLinkClick={this.toggleLoginDialog} isLoggedIn={this.state.isLoggedIn}/>
             <Header/>
             <ChatBox />
             {this.props.children}
         </div>
     }
 
-    toggleDrawer() {
-        this.drawer.toggleDrawer();
+    toggleDrawerHandler() {
+        this.drawer.toggleDrawerHandler();
     }
 
     toggleLoginDialog() {
-        this.loginDialog.toggleDialog();
+        this.loginDialog.toggleDialogHandler();
     }
 
     //Change to logged in style
