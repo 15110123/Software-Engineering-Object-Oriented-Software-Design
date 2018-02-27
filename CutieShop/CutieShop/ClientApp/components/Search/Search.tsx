@@ -1,5 +1,6 @@
-﻿import * as React from "react"
-import {RouteComponentProps} from "react-router"
+﻿//ReSharper disable All
+import * as React from "react"
+import {RouteComponentProps, Redirect} from "react-router"
 
 export class Search extends React.Component<RouteComponentProps<{}>, {keyword : string}> 
 {
@@ -17,6 +18,13 @@ export class Search extends React.Component<RouteComponentProps<{}>, {keyword : 
 
     componentWillReceiveProps(newProps) {
         let params = new URLSearchParams(newProps.location.search);
-        this.setState({ keyword: params.get("keyword") as string });
+        let keyword = params.get("keyword") as string;
+
+        if (keyword == "") {
+            window.location.pathname = "/";
+            return;
+        }
+
+        this.setState({ keyword: keyword });
     }
 }
