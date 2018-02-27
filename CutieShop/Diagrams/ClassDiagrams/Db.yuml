@@ -26,8 +26,6 @@
 [Score|(Customer);Value]
 [EmpType|(Id);Name]
 [Advertisement|(Id);ImgUrl;Owner]
-[MessageSession|(Id);Employee;Customer;DateStart;DateEnd]
-[Conversation|(Id);(MessageSession);IsEmployee;Content;ImgUrl]
 [Shipment|(Id);Customer;AltAddress;Shipper;DateReceived;ShipStatus]
 [ShipStatus|(Id);Name;Description]
 [Order|(Id);UsedScore;DateOrdered;IsDeleted]
@@ -89,11 +87,6 @@
 [Employee]<1-n>[Post]
 [Employee]<1-n>[Import]
 [Employee]<1-n>[Export]
-
-//MessageSession
-[MessageSession]<1-n>[Conversation]
-[MessageSession]<n-1>[Customer]
-[MessageSession]<n-1>[Employee]
 
 //Advertisement
 [Advertisement]<n-1>[Employee]
