@@ -11,10 +11,14 @@ export class ChatBox extends React.Component<{}, {}> {
     public render() {
         return <div id="chatbox-container" className="hover-fx">
             <div id="chatbox-main" style={{ display: "none"}}>
-                       <div id="chatbox-form-container">
+                <div id="chatbox-form-container">
+                    {
+/*Changed: using Facebook messenger instead of custom one*/
+/*
                            <form id="chatbox-form">
                         <textarea id="chatbox-form-input" form="chatbox-form" name="message" rows={1}></textarea>
-                           </form>
+                        </form>
+                        */}
                        </div>
                    </div>
                    <div id="chatbox-footer">
