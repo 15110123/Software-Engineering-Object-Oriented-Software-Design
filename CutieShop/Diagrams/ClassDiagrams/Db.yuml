@@ -40,7 +40,7 @@
 
 //Good 
 [Good]<1-1>[ShipableGood]
-[Good]<1-1>[Pet]
+[Good]<n-n>[Pet]
 [ShipableGood]<1-1>[Accessory]
 [ShipableGood]<1-1>[Toy]
 [ShipableGood]<1-1>[Cage]
