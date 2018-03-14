@@ -9,10 +9,10 @@
     background-color: green;
     border: 0;
     color: white;
-    border-radius: 20px;
     cursor: pointer;
     height: 35px;
     width: 100%;
+    border-radius: 5px;
 }
 
 .BtnNav .navBtnIcon {
@@ -68,18 +68,20 @@
     animation-fill-mode: forwards;
     position: absolute;
     width: 180px;
+    z-index: 3;
+    background-color: rgb(0, 42, 0);
 }
 
 .Dropdown .Dropdown-content a {
     display: block;
     text-decoration: unset;
-    color: grey;
+    color: rgb(194, 194, 194);
     font-size: 20px;
 }
 
     .Dropdown .Dropdown-content a:hover {
         font-size: 30px;
-        color: black;
+        color: #fff;
     }
 
 /*Animation frames*/
