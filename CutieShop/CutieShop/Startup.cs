@@ -49,8 +49,9 @@ namespace CutieShop
             else
             {
                 //Redirect all HTTP request to HTTPS: https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl
-                var options = new RewriteOptions().AddRedirectToHttps();
-                app.UseRewriter(options);
+                //No need anymore, since Azure supports auto-redirect HTTPS
+                //var options = new RewriteOptions().AddRedirectToHttps();
+                //app.UseRewriter(options);
 
                 app.UseExceptionHandler("/Home/Error");
             }

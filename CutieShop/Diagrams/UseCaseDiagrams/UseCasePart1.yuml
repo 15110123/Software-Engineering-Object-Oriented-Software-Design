@@ -4,14 +4,15 @@
 (note: Cutie Shop{bg:beige})
 [Khach hang]-(Dang ky thanh vien)
 [Khach hang]-(Dang nhap)
-[Nhan vien]-(Dang nhap)
+(Dang nhap)-[Nhan vien]
 [Khach hang]-(Dang xuat)
-[Nhan vien]-(Dang xuat)
+(Dang xuat)-[Nhan vien]
 [Khach hang]-(Dat hang online)
 [Khach hang]-(Tra cuu san pham)
-[Nhan vien]-(Tra cuu san pham)
+(Tra cuu san pham)-[Nhan vien]
 (Tra cuu san pham)<(So sanh san pham)
 [Khach hang]-(Tich luy va tra cuu diem)
 [Khach hang]-(Dung diem tich luy de giam gia hoa don)
 (Dat hang online)>(Theo doi tinh trang don hang)
-[Nhan vien]-(Theo doi tinh trang don hang)
+(Theo doi tinh trang don hang)-[Nhan vien]
+[Khach hang]-(Tu van, tra loi qua Facebook messenger)
